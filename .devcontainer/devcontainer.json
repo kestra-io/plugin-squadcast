@@ -1,10 +1,10 @@
 {
-  "name": "plugin-template",
+  "name": "plugin-squadcast",
   "build": {
     "context": ".",
     "dockerfile": "Dockerfile"
   },
-  "workspaceFolder": "/workspaces/plugin-template",
+  "workspaceFolder": "/workspaces/plugin-squadcast",
   "forwardPorts": [8080],
   "customizations": {
     "vscode": {
