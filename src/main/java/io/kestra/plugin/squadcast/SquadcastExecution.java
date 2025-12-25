@@ -60,7 +60,8 @@ import java.util.Map;
                         prefix: true
                 """
         )
-    }
+    },
+    aliases = "io.kestra.plugin.notifications.squadcast.SquadcastExecution"
 )
 public class SquadcastExecution extends SquadcastTemplate implements ExecutionInterface {
     @Builder.Default

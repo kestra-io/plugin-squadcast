@@ -54,25 +54,26 @@ import java.net.URI;
                         "event_id": "1"
                       }
                 """
-      ),
+        ),
         @Example(
             title = "Resolve a Squadcast incident using event ID",
             full = true,
             code = """
-            id: squadcast_notification
-            namespace: company.team
-            tasks:
-              - id: send_squadcast_message
-                type: io.kestra.plugin.squadcast.SquadcastIncomingWebhook
-                url: "{{ secret('SQUADCAST_WEBHOOK') }}"
-                payload: |
-                  {
-                    "status": "resolve",
-                    "event_id": "1"
-                  }
-            """
+                id: squadcast_notification
+                namespace: company.team
+                tasks:
+                  - id: send_squadcast_message
+                    type: io.kestra.plugin.squadcast.SquadcastIncomingWebhook
+                    url: "{{ secret('SQUADCAST_WEBHOOK') }}"
+                    payload: |
+                      {
+                        "status": "resolve",
+                        "event_id": "1"
+                      }
+                """
         )
-  }
+    },
+    aliases = "io.kestra.plugin.notifications.squadcast.SquadcastIncomingWebhook"
 )
 public class SquadcastIncomingWebhook extends AbstractSquadcastConnection {
     @Schema(
