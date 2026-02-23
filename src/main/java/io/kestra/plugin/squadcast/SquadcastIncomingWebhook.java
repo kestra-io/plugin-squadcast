@@ -25,8 +25,8 @@ import java.net.URI;
 @Getter
 @NoArgsConstructor
 @Schema(
-    title = "Send a Squadcast message using an Incoming Webhook.",
-    description = "Add this task to send direct Squadcast notifications. Check the <a href=\"https://support.squadcast.com/docs/webhook\">Squadcast documentation</a> for more details."
+    title = "Send Squadcast alert via webhook",
+    description = "POSTs a JSON payload to the Squadcast Incoming Webhook URL you provisioned. Keep the URL secret; authentication is embedded in it. See the [Squadcast documentation](https://support.squadcast.com/docs/webhook) for payload details."
 )
 @Plugin(
     examples = {
@@ -77,15 +77,16 @@ import java.net.URI;
 )
 public class SquadcastIncomingWebhook extends AbstractSquadcastConnection {
     @Schema(
-        title = "Squadcast incoming webhook URL",
-        description = "Check the <a href=\"https://support.squadcast.com/docs/webhook\">Squadcast Webhook</a> documentation for more details."
+        title = "Squadcast Incoming Webhook URL",
+        description = "Full webhook endpoint from Squadcast (includes token); keep in a secret. See [Squadcast Webhook docs](https://support.squadcast.com/docs/webhook)."
     )
     @PluginProperty(dynamic = true)
     @NotEmpty
     private String url;
 
     @Schema(
-        title = "Squadcast message payload"
+        title = "Raw JSON payload",
+        description = "JSON body sent as-is after template rendering; must include Squadcast-required fields such as `status` and `event_id`"
     )
     protected Property<String> payload;
 
