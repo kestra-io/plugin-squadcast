@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import io.kestra.core.models.annotations.PluginProperty;
 
 @SuperBuilder
 @ToString
@@ -31,42 +32,49 @@ public abstract class SquadcastTemplate extends SquadcastIncomingWebhook {
         description = "Required alert message shown in Squadcast after template rendering"
     )
     @NotNull
+    @PluginProperty(group = "main")
     protected Property<String> message;
 
     @Schema(
         title = "Incident priority code",
         description = "One of P1–P5; invalid values fall back to Squadcast \"Unset\""
     )
+    @PluginProperty(group = "advanced")
     protected Property<String> priority;
 
     @Schema(
         title = "Incident event identifier",
         description = "Unique event ID to correlate trigger/resolve calls; required by Squadcast when updating incidents"
     )
+    @PluginProperty(group = "advanced")
     protected Property<String> eventId;
 
     @Schema(
         title = "Incident status action",
         description = "Squadcast action such as `trigger` or `resolve`; controls incident lifecycle"
     )
+    @PluginProperty(group = "advanced")
     protected Property<String> status;
 
     @Schema(
         title = "Tags applied to incident",
         description = "Key-value tags added to the incident payload after template rendering"
     )
+    @PluginProperty(group = "advanced")
     protected Property<Map<String, String>> tags;
 
     @Schema(
         title = "Template to use",
         hidden = true
     )
+    @PluginProperty(group = "advanced")
     protected Property<String> templateUri;
 
     @Schema(
         title = "Render variables for template",
         description = "Data map provided to the message template before JSON parsing"
     )
+    @PluginProperty(group = "advanced")
     protected Property<Map<String, Object>> templateRenderMap;
 
     @Override

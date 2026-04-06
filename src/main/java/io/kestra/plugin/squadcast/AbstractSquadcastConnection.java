@@ -31,7 +31,7 @@ public abstract class AbstractSquadcastConnection extends Task implements Runnab
         title = "Configure HTTP client options",
         description = "Optional HTTP overrides for Squadcast calls; defaults keep a 10s read timeout, 5m idle timeout, UTF-8 charset, and 10 MiB response cap"
     )
-    @PluginProperty(dynamic = true)
+    @PluginProperty(dynamic = true, group = "advanced")
     protected RequestOptions options;
 
     protected HttpConfiguration httpClientConfigurationWithOptions() throws IllegalVariableEvaluationException {
@@ -75,6 +75,7 @@ public abstract class AbstractSquadcastConnection extends Task implements Runnab
             title = "Set connect timeout before failing",
             description = "Time allowed to establish the TCP connection; uses the global HTTP default when unset"
         )
+        @PluginProperty(group = "execution")
         private final Property<Duration> connectTimeout;
 
         @Schema(
@@ -82,6 +83,7 @@ public abstract class AbstractSquadcastConnection extends Task implements Runnab
             description = "Maximum time to read the response before failing; defaults to 10s"
         )
         @Builder.Default
+        @PluginProperty(group = "execution")
         private final Property<Duration> readTimeout = Property.ofValue(Duration.ofSeconds(10));
 
         @Schema(
@@ -89,6 +91,7 @@ public abstract class AbstractSquadcastConnection extends Task implements Runnab
             description = "Idle read timeout before closing the connection; defaults to 5 minutes"
         )
         @Builder.Default
+        @PluginProperty(group = "execution")
         private final Property<Duration> readIdleTimeout = Property.ofValue(Duration.of(5, ChronoUnit.MINUTES));
 
         @Schema(
@@ -96,6 +99,7 @@ public abstract class AbstractSquadcastConnection extends Task implements Runnab
             description = "How long an idle pooled connection stays open; default 0s closes it immediately after use"
         )
         @Builder.Default
+        @PluginProperty(group = "execution")
         private final Property<Duration> connectionPoolIdleTimeout = Property.ofValue(Duration.ofSeconds(0));
 
         @Schema(
@@ -103,6 +107,7 @@ public abstract class AbstractSquadcastConnection extends Task implements Runnab
             description = "Maximum response size in bytes; defaults to 10 MiB"
         )
         @Builder.Default
+        @PluginProperty(group = "execution")
         private final Property<Integer> maxContentLength = Property.ofValue(1024 * 1024 * 10);
 
         @Schema(
@@ -110,12 +115,14 @@ public abstract class AbstractSquadcastConnection extends Task implements Runnab
             description = "Charset used when encoding request bodies; defaults to UTF-8"
         )
         @Builder.Default
+        @PluginProperty(group = "advanced")
         private final Property<Charset> defaultCharset = Property.ofValue(StandardCharsets.UTF_8);
 
         @Schema(
             title = "Add custom HTTP headers",
             description = "Additional headers appended to the request; supports templating per execution"
         )
+        @PluginProperty(group = "advanced")
         public Property<Map<String, String>> headers;
     }
 }
