@@ -81,6 +81,7 @@ public class SquadcastIncomingWebhook extends AbstractSquadcastConnection {
         title = "Squadcast Incoming Webhook URL",
         description = "Full webhook endpoint from Squadcast (includes token); keep in a secret. See [Squadcast Webhook docs](https://support.squadcast.com/docs/webhook)."
     )
+    @ToString.Exclude
     @PluginProperty(secret = true, dynamic = true, group = "main")
     @NotEmpty
     private String url;
