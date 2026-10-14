@@ -82,4 +82,21 @@ class SquadcastIncomingWebhookTest {
         assertThat(FakeWebhookController.data, containsString("{{ notAVariable }}"));
     }
 
+    @Test
+    void shouldSendVariableValueContainingExpressionAsText() throws Exception {
+        RunContext runContext = runContextFactory.of(Map.of("user_input", "{{ secret('API_KEY') }}"));
+
+        EmbeddedServer embeddedServer = applicationContext.getBean(EmbeddedServer.class);
+        embeddedServer.start();
+
+        SquadcastIncomingWebhook task = SquadcastIncomingWebhook.builder()
+            .url(embeddedServer.getURI() + "/webhook-unit-test")
+            .payload(Property.ofExpression("{\"message\": \"{{ user_input }}\"}"))
+            .build();
+
+        task.run(runContext);
+
+        assertThat(FakeWebhookController.data, containsString("{{ secret('API_KEY') }}"));
+    }
+
 }
